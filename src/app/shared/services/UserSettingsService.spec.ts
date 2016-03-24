@@ -18,6 +18,14 @@ import {UserSettings} from '../models/UserSettings';
 
 describe('UserSettingsService', () => {
 
+  function getDefaultUserSettingsObject() {
+    return getUserSettingsObject(
+      UserSettingsEnums.PointerSize.Small,
+      UserSettingsEnums.PointerType.Hand,
+      UserSettingsEnums.PointerColor.White,
+      UserSettingsEnums.BackgroundColor.InColor
+    );
+  }
   function getUserSettingsObject(
     pointerSize: UserSettingsEnums.PointerSize,
     pointerType: UserSettingsEnums.PointerType,
@@ -53,12 +61,7 @@ describe('UserSettingsService', () => {
 
   it('getUserSettingsFor_ValidUserName_ValidateRetrievedDataMatchFromTheHttpResponse',
     inject([UserSettingsService, MockBackend], (userSettingsService: UserSettingsService, mockBackend) => {
-      var userSettingsObject = getUserSettingsObject(
-        UserSettingsEnums.PointerSize.Small,
-        UserSettingsEnums.PointerType.Hand,
-        UserSettingsEnums.PointerColor.White,
-        UserSettingsEnums.BackgroundColor.InColor
-      );
+      var userSettingsObject = getDefaultUserSettingsObject();
 
       mockBackend.connections.subscribe(
         (connection: MockConnection) => {
@@ -70,6 +73,32 @@ describe('UserSettingsService', () => {
         });
 
       userSettingsService.getUserSettingsFor('username').subscribe(
+        (data) => {
+          expect(data.pointerSize).toBe(UserSettingsEnums.PointerSize.Small);
+          expect(data.pointerType).toBe(UserSettingsEnums.PointerType.Hand);
+          expect(data.pointerColor).toBe(UserSettingsEnums.PointerColor.White);
+          expect(data.backgroundColor).toBe(UserSettingsEnums.BackgroundColor.InColor);
+        },
+        (error) => {
+          fail(error);
+        }
+      );
+    }));
+
+  it('saveUserSettingsForUser_ValidUserNameAndValidUserSettings_ValidateRetrievedDataMatchFromTheHttpResponse',
+    inject([UserSettingsService, MockBackend], (userSettingsService: UserSettingsService, mockBackend) => {
+      var userSettingsObject = getDefaultUserSettingsObject();
+
+      mockBackend.connections.subscribe(
+        (connection: MockConnection) => {
+          connection.mockRespond(new Response(
+            new ResponseOptions({
+              body: JSON.stringify(userSettingsObject)
+            }
+            )));
+        });
+
+      userSettingsService.saveUserSettingsForUser('username', userSettingsObject).subscribe(
         (data) => {
           expect(data.pointerSize).toBe(UserSettingsEnums.PointerSize.Small);
           expect(data.pointerType).toBe(UserSettingsEnums.PointerType.Hand);

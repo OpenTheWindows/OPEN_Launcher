@@ -17,8 +17,6 @@ describe("Game menu log in user", function() {
 
 
 
-<<<<<<< HEAD
-=======
 
   it("User can choose random picture", function() {
     CreateUserPage.clickCreateBtn();
@@ -40,7 +38,6 @@ describe("Game menu log in user", function() {
 
 
 
->>>>>>> upstream/master
   it("User can create new user ", function() {
     CreateUserPage.CreateAutoGenerateUserName();
     browser.sleep(500);

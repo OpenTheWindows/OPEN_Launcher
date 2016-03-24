@@ -57,3 +57,7 @@ npm-debug.log
 # IDE #
 .idea/
 *.swp
+
+# Assets #
+images
+/src/assets/db.json

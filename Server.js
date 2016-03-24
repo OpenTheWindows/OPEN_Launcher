@@ -30,7 +30,7 @@ var upload = multer({ storage: fileStorage }).single('userPhoto');
 
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
-  stats: { colors: true }
+  stats: { colors: true, chunks: false }
 }));
 app.use(webpackHotMiddleware(compiler, {
   log: console.log
@@ -130,6 +130,27 @@ app.get('/api/getUserSettings/:username?', function(req, res) {
     res.send({ error: 'Not found' });
   }
 });
+
+// Add new user in the json lowdb file
+app.post('/api/saveUserSettings/:username?', function(req, res) {
+  var user = db('users').find({ name: req.params.username });
+  var userSettings = req.body;
+
+  if (user) {
+    db('users')
+      .chain()
+      .find({ name: req.params.username })
+      .assign({ userSettings: userSettings })
+      .value();
+
+    res.send(userSettings);
+  }
+  else {
+    res.status(404);
+    res.send({ error: 'Not found' });
+  }
+});
+
 // == API ============================================================================
 
 // == HELPER FUNCTIONS ===============================================================

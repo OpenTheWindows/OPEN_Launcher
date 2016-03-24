@@ -9,6 +9,7 @@ export class GlobalService {
   URL_ADDUSER: string = URL + '/api/addUser';
   URL_GETPROFILE_IMAGES: string = URL + '/api/GetProfileImages/';
   URL_GETPOINTER_IMAGES: string = URL + '/api/GetPointerImages/';
+
   URL_GETUSER(username: string): string {
     return URL + '/api/getAllUsers/' + username;
   }
@@ -17,6 +18,9 @@ export class GlobalService {
   }
   URL_GET_USERSETTINGS(username: string): string {
     return URL + '/api/getUserSettings/' + username;
+  }
+  URL_SAVE_USERSETTINGS(username: string): string {
+    return URL + '/api/saveUserSettings/' + username;
   }
   constructor() { }
 }

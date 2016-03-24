@@ -8,7 +8,7 @@ import {EnumEx} from '../../shared/enums/EnumEx';
 
 @Injectable()
 export class UserSettingsColorsService {
-  constructor(private globalService: GlobalService) { }
+  constructor() { }
 
   getPointerColors(backgroundColor: BackgroundColor): PointerColor[] {
     var inColorAvailablePointerColors = [
@@ -23,7 +23,7 @@ export class UserSettingsColorsService {
       PointerColor.Yellow
     ];
 
-    return (backgroundColor == BackgroundColor.BlackAndWhite) ?
+    return (Number(backgroundColor) === BackgroundColor.BlackAndWhite) ?
       blackAndWhiteAvailablePointerColors :
       inColorAvailablePointerColors;
   }

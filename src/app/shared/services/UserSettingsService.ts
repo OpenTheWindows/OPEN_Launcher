@@ -20,6 +20,19 @@ export class UserSettingsService implements IUserSettingsService {
         return userSettings;
       });
   }
+
+  saveUserSettingsForUser(username: string, userSettings: UserSettings) {
+    var headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(this.globalService.URL_SAVE_USERSETTINGS(username),
+      JSON.stringify(userSettings),
+      { headers: headers })
+      .map(res => {
+        var userSettings: UserSettings = res.json();
+        return userSettings;
+      });
+  }
 }
 
 export var userSettingsServiceInjectables: Array<any> = [
