@@ -1,70 +1,66 @@
 <div class="form-horizontal">
-  <div class="container">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Корисничко име</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="usernamefield" placeholder="Филтер" [(ngModel)]="usernameFilter" />
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Профил</label>
-      <div class="col-sm-10">
-        <div class="col-sm-4 col-md-3 col-lg-2 top-buffer" *ngFor="#user of allUsers | usersFilter:usernameFilter">
-          <div class="row text-center">
-            <label class="text-overflow">{{user.name}}</label>
-          </div>
-          <div class="row text-center">
-            <img src="{{user.profileImg}}" class="img-circle" [class.selected]="ShouldApplySelectedUserCss(user)" (click)="selectUser(user)"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-sm-10 col-sm-push-2">
-        <div class="col-sm-4 text-left" *ngIf="selectedUser.name">
-          <input type="button" id="btn-login" class="btn btn-primary col-sm-12 center-block" value="Логирај се" (click)="login()" />
-        </div>
-        <div class="col-sm-4 text-center">
-
-
-
-          <a class="btn btn-primary col-sm-12 center-block" id="createUser" [routerLink]="['/Register']">Креирај нов профил</a>
-
-        </div>
-        <div class="col-sm-4 text-center" *ngIf="selectedUser.name">
-          <input type="button" id="deleteBtn" class="btn btn-primary col-sm-12 center-block" value="Избриши профил" data-toggle="modal"
-          data-target="#myModal" data-backdrop="static" />
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Бришење</h4>
-          </div>
-          <div class="modal-body">
-            Дали сте сигурни дека сакате да го избришете профилот?
-            <div class="row text-center">
-              <label class="text-overflow">{{selectedUser.name}}</label>
+    <div class="container">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Корисничко име</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="usernamefield" placeholder="Филтер" [(ngModel)]="usernameFilter" />
             </div>
-            <div class="row text-center">
-              <img src="{{selectedUser.profileImg}}" class="img-circle" [class.selected]="ShouldApplySelectedUserCss(selectedUser)" />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="neBtn" class="btn btn-default" data-dismiss="modal" (click)="deleteCancelled()">Не</button>
-            <button type="button" id="daBtn" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser()">Дa</button>
-          </div>
         </div>
-      </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Профил</label>
+            <div class="col-sm-10">
+                <div class="col-sm-4 col-md-3 col-lg-2 top-buffer" *ngFor="#user of allUsers | usersFilter:usernameFilter">
+                    <div class="row text-center">
+                        <label class="text-overflow">{{user.name}}</label>
+                        <button id="deleteBtn" type="button" class="btn btn-danger btn-xs deleteBtn" [class.displayDeleteBtn]="ShouldApplySelectedUserCss(user)"
+                        aria-label="Left Align" data-toggle="modal" data-target="#myModal" data-backdrop="static">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="row text-center">
+                        <img src="{{user.profileImg}}" class="img-circle" [class.selected]="ShouldApplySelectedUserCss(user)" (click)="selectUser(user)"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-push-2">
+                <div class="col-sm-4 text-left" *ngIf="selectedUser.name">
+                    <input type="button" id="btn-login" class="btn btn-primary col-sm-12 center-block" value="Логирај се" (click)="login()" />
+                </div>
+                <div class="col-sm-4 text-center">
+                    <a class="btn btn-primary col-sm-12 center-block" id="createUser" [routerLink]="['/Register']">Креирај нов профил</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Бришење</h4>
+                    </div>
+                    <div class="modal-body">
+                        Дали сте сигурни дека сакате да го избришете профилот?
+                        <div class="row text-center">
+                            <label class="text-overflow">{{selectedUser.name}}</label>
+                        </div>
+                        <div class="row text-center">
+                            <img src="{{selectedUser.profileImg}}" class="img-circle" [class.selected]="ShouldApplySelectedUserCss(selectedUser)" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="neBtn" class="btn btn-default" data-dismiss="modal" (click)="deleteCancelled()">Не</button>
+                        <button type="button" id="daBtn" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser()">Дa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
     </div>
-    <!-- Modal -->
-  </div>
 </div>

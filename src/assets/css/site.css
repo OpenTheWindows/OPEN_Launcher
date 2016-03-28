@@ -81,3 +81,14 @@ a.link{
 .pointer-color-4{
   background-color:red;
 }
+
+.deleteBtn{
+    display: none;
+}
+
+.displayDeleteBtn{
+     display: block; 
+     position:absolute;
+     top:0;
+     right:0;
+}
