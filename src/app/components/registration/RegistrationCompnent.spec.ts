@@ -8,9 +8,9 @@ import {
   injectAsync
 } from 'angular2/testing';
 
-import {provide, Injector, Component} from 'angular2/core';
+import {provide, Component} from 'angular2/core';
 import {FormBuilder} from 'angular2/common';
-import {RouterLink, Router} from 'angular2/router';
+import {Router} from 'angular2/router';
 import {Observable} from 'rxjs/Rx';
 
 import {User, Users} from '../../shared/models/User';
@@ -21,7 +21,32 @@ import {AlertingService} from '../alerting/AlertingService';
 import {RegisterComponent} from './RegisterComponent';
 import {Alert} from '../alerting/Alert';
 
-describe('RegistrationCompnent', function() {
+describe('RegisterComponent', function() {
+  var instance: RegisterComponent = null;
+
+  function setUser(user: User): User {
+    user.name = 'eljesa';
+    user.profileImg = 'PATH';
+    return user;
+  }
+
+  function getAllUsers(user: User): User[] {
+    var user1 = new User();
+    user1.name = 'a';
+    user1.profileImg = 'aa';
+    var user2 = new User();
+    user2.name = 'b';
+    user2.profileImg = 'bb';
+    var allUsers: User[] = new Array<User>();
+    allUsers[0] = user1;
+    allUsers[1] = user2;
+    allUsers[2] = new User();
+    allUsers[2].name = user.name;
+    allUsers[2].profileImg = user.profileImg;
+
+    return allUsers;
+  }
+
   class ImagesServiceMock {
     getProfileImages() {
       var string1 = '["./app/assets/images/avatars/default.jpg", "./app/assets/images/avatars/devojce.png"]';
@@ -35,153 +60,100 @@ describe('RegistrationCompnent', function() {
   }
 
   class AlertingServiceMock {
-    addDanger(message: string) {
-
-    }
-
-    addSuccess(message: string) {
-
-    }
+    addDanger(message: string) { }
+    addSuccess(message: string) { }
   }
 
   class RouterMock {
-    navigate(urlList: Array<String>) {
-
-    }
+    navigate(urlList: Array<String>) { }
   }
 
-  var injector: Injector;
-  var instance: RegisterComponent = null;
-  var _imagesService: ImagesService;
-  var _userService: UserService;
-  var _alertingService: AlertingService;
-  var _router: Router;
-  var _userValidationService: UserValidationService;
-  var _formBuilder: FormBuilder;
+  beforeEachProviders(() => [
+    provide(AlertingService, { useClass: AlertingServiceMock }),
+    provide(ImagesService, { useClass: ImagesServiceMock }),
+    provide(UserService, { useClass: UserServiceMock }),
+    provide(UserValidationService, { useClass: UserValidationService }),
+    provide(Router, { useClass: RouterMock }),
+    FormBuilder,
+    RegisterComponent
+  ]);
 
-  beforeEach(() => {
-    injector = Injector.resolveAndCreate([
-      provide(ImagesService, { useClass: ImagesServiceMock }),
-      provide(UserService, { useClass: UserServiceMock }),
-      provide(AlertingService, { useClass: AlertingServiceMock }),
-      provide(Router, { useClass: RouterMock }),
-      UserValidationService,
-      FormBuilder
-    ]);
+  it('RegisterComponent_getAvailableImages_returnJSONOfImagesFiles',
+    inject([RegisterComponent], (instance) => {
+      // Act
+      var allImagesLocal: string[] = new Array<string>();
+      allImagesLocal = ['./app/assets/images/avatars/default.jpg', './app/assets/images/avatars/devojce.png'];
 
-    _imagesService = injector.get(ImagesService);
-    _userService = injector.get(UserService);
-    _alertingService = injector.get(AlertingService);
-    _router = injector.get(Router);
-    _userValidationService = injector.get(UserValidationService);
-    _formBuilder = injector.get(FormBuilder);
+      // Assert
+      expect(instance.allImages).toEqual(allImagesLocal);
+    }));
 
-    spyOn(_router, 'navigate').and.callThrough();
-    spyOn(_alertingService, 'addSuccess').and.callThrough();
-    spyOn(_alertingService, 'addDanger').and.callThrough();
+  it('RegisterComponent_onSelect_shouldbeEljesa',
+    inject([RegisterComponent], (instance) => {
+      //act
+      instance.onSelect('eljesa');
+      //assert
+      expect(instance.user.profileImg).toBe('eljesa');
+    }));
 
-    instance = new RegisterComponent(_alertingService, _imagesService, _userService, _userValidationService, _router, _formBuilder);
-  });
+  it('RegisterComponent_onSelect_shouldBeDefaultPath',
+    inject([RegisterComponent], (instance) => {
+      //assert
+      expect(instance.user.profileImg).toBe('./assets/images/avatars/default.jpg');
+    }));
 
-  it('RegisterComponent_getAvailableImages_returnJSONOfImagesFiles', function() {
-    // Act
-    var allImagesLocal: string[] = new Array<string>();
-    allImagesLocal = ['./app/assets/images/avatars/default.jpg', './app/assets/images/avatars/devojce.png'];
+  it('RegisterComponent_adduser_shouldAddUserAndReturnUsersAndEmptyMessage',
+    inject([RegisterComponent], (instance) => {
+      //Arrange
+      spyOn(instance.router, 'navigate').and.callThrough();
+      spyOn(instance.alertingService, 'addSuccess').and.callThrough();
+      spyOn(instance.userService, 'addUser').and.callFake(function(user) {
 
-    // Assert
-    expect(instance.allImages).toEqual(allImagesLocal);
-  });
+      var response: Users = new Users(getAllUsers(user));
+        return Observable.of({ users: response.users, message: '' });
+      });
 
-  it('RegisterComponent_onSelect_shouldbeEljesa', function() {
-    //act
-    instance.onSelect('eljesa');
-    //assert
-    expect(instance.user.profileImg).toBe('eljesa');
-  });
+      //Act
+      let user: User = new User();
+      instance.user = setUser(user);
+      instance.onSubmit();
 
-  it('RegisterComponent_onSelect_shouldBeDefaultPath', function() {
-    //assert
-    expect(instance.user.profileImg).toBe('./assets/images/avatars/default.jpg');
-  });
+      //Assert
+      expect(instance.router.navigate).toHaveBeenCalledWith(['/Login']);
+      expect(instance.alertingService.addSuccess).toHaveBeenCalledWith('Успешно внесен корисник.');
+    }));
 
-  it('RegisterComponent_adduser_shouldAddUserAndReturnUsersAndEmptyMessage', function() {
-    //Arrange
-    spyOn(_userService, 'addUser').and.callFake(function(user) {
-      var user1 = new User();
-      user1.name = 'a';
-      user1.profileImg = 'aa';
-      var user2 = new User();
-      user2.name = 'b';
-      user2.profileImg = 'bb';
-      var allUsers: User[] = new Array<User>();
-      allUsers[0] = user1;
-      allUsers[1] = user2;
-      allUsers[2] = new User();
-      allUsers[2].name = user.name;
-      allUsers[2].profileImg = user.profileImg;
+  it('RegisterComponent_addUser_ExsitingName_ShouldNotAddAndWriteMessage',
+    inject([RegisterComponent], (instance) => {
+      //Arrange
+      spyOn(instance.alertingService, 'addDanger').and.callThrough();
+      spyOn(instance.userService, 'addUser').and.callFake(function(user) {
+        var response: Users = new Users(getAllUsers(user));
+        return Observable.of({ users: response.users, message: 'Name exists' });
+      });
 
-      var response: Users = new Users(allUsers);
-      return Observable.of({ users: response.users, message: '' });
-    });
+      //Act
+      let user: User = new User();
+      instance.user = setUser(user);
+      instance.onSubmit();
 
+      //Assert
+      expect(instance.alertingService.addDanger).toHaveBeenCalledWith('Корисничкото име веќе постои, обидете се да се регистрирате со друго име');
+    }));
 
-    //Act
-    let user: User = new User();
-    user.name = 'eljesa';
-    user.profileImg = 'PATH';
+  it('RegisterComponent_addUser_ShouldNotAddAndShouldReturnAllUsersWithWrittenMessage',
+    inject([RegisterComponent], (instance) => {
+      //Arrange
+      spyOn(instance.alertingService, 'addDanger').and.callThrough();
+      //Act
+      let user: User = new User();
+      user.name = 'eljesa';
+      user.profileImg = './assets/images/avatars/default.jpg';
 
-    instance.user = user;
-    instance.onSubmit();
+      instance.user = user;
+      instance.onSubmit();
 
-    //Assert
-    expect(_router.navigate).toHaveBeenCalledWith(['/Login']);
-    expect(_alertingService.addSuccess).toHaveBeenCalledWith('Успешно внесен корисник.');
-  });
-
-  it('RegisterComponent_addUser_ExsitingName_ShouldNotAddAndWriteMessage', function() {
-    //Arrange
-    spyOn(_userService, 'addUser').and.callFake(function(user) {
-      var user1 = new User();
-      user1.name = 'a';
-      user1.profileImg = 'aa';
-      var user2 = new User();
-      user2.name = 'b';
-      user2.profileImg = 'bb';
-      var allUsers: User[] = new Array<User>();
-      allUsers[0] = user1;
-      allUsers[1] = user2;
-      allUsers[2] = new User();
-      allUsers[2].name = user.name;
-      allUsers[2].profileImg = user.profileImg;
-
-      var response: Users = new Users(allUsers);
-      return Observable.of({ users: response.users, message: 'Name exists' });
-    });
-
-
-    //Act
-    let user: User = new User();
-    user.name = 'eljesa';
-    user.profileImg = 'PATH';
-
-    instance.user = user;
-    instance.onSubmit();
-
-    //Assert
-    expect(_alertingService.addDanger).toHaveBeenCalledWith('Корисничкото име веќе постои, обидете се да се регистрирате со друго име');
-  });
-
-  it('RegisterComponent_addUser_ShouldNotAddAndShouldReturnAllUsersWithWrittenMessage', function() {
-    //Arrange
-    //Act
-    let user: User = new User();
-    user.name = 'eljesa';
-    user.profileImg = './assets/images/avatars/default.jpg';
-
-    instance.user = user;
-    instance.onSubmit();
-
-    //Assert
-    expect(_alertingService.addDanger).toHaveBeenCalledWith('За да креирате профил, ве молам изберете слика');
-  });
+      //Assert
+      expect(instance.alertingService.addDanger).toHaveBeenCalledWith('За да креирате профил, ве молам изберете слика');
+    }));
 });
