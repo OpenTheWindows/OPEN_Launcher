@@ -20,7 +20,7 @@ import {PointerType, PointerSize, PointerColor, BackgroundColor} from '../../sha
   templateUrl: './app/components/registration/register.html'
 })
 export class RegisterComponent {
-  public user: User = new User();
+  public user: User;
   public registerForm: ControlGroup;
   public allImages: string[] = new Array<string>();
 
