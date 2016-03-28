@@ -18,10 +18,6 @@
 
 <div id="pointer" class="form-group top-buffer">
   <label class="col-sm-2 control-label">Покажувач:</label>
-
-  <!--<div class="col-sm-1">
-      <h4>Големина</h4>
-    </div>-->
   <div class="col-sm-10">
     <div *ngFor="#img of allImages; #i=index" class="col-sm-6 col-md-3 col-lg-2 top-buffer">
       <img id="pointer-size-{{i}}" src="{{img}}" class="img-circle" [class.selected]="shouldApplySelectedPointerSizeCss(i)" (click)="selectPointerSize(i)"
@@ -29,7 +25,6 @@
     </div>
   </div>
 
-  <!--<h4>Боја</h4>-->
   <div class="col-sm-10 col-sm-offset-2">
     <div *ngFor="#color of availablePointerColors" class="col-sm-6 col-md-3 col-lg-2 top-buffer">
       <div id="pointer-color-{{color}}" class="pointer-color-{{color}} color-box img-circle" [class.selected]="shouldApplySelectedPointerColorCss(color)"
