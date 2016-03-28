@@ -9,6 +9,72 @@
       },
       "profileImg": "./assets/images/avatars/devojce.png",
       "name": "Aleksandra"
+    },
+    {
+      "userSettings": {
+        "pointerType": 0,
+        "backgroundColor": "0",
+        "pointerColor": 1,
+        "pointerSize": 0
+      },
+      "profileImg": "./assets/images/avatars/mecka.png",
+      "name": "Medo"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": "1",
+        "pointerSize": 1,
+        "pointerColor": 1
+      },
+      "profileImg": "./assets/images/avatars/peperutka.jpg",
+      "name": "peperutka"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": "0",
+        "pointerSize": 1,
+        "pointerColor": 2
+      },
+      "profileImg": "./assets/images/avatars/slon.png",
+      "name": "Slonce"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": "1",
+        "pointerSize": 0,
+        "pointerColor": 0
+      },
+      "profileImg": "./assets/images/avatars/srce.png",
+      "name": "srce"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": "0",
+        "pointerSize": 0,
+        "pointerColor": 2
+      },
+      "profileImg": "./assets/images/avatars/momce.png",
+      "name": "momce"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": "1",
+        "pointerType": 0,
+        "pointerSize": 1,
+        "pointerColor": 1
+      },
+      "profileImg": "./assets/images/avatars/prase.png",
+      "name": "pig"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 1,
+        "pointerType": 0,
+        "pointerSize": 1,
+        "pointerColor": 1
+      },
+      "profileImg": "./assets/images/avatars/torta.png",
+      "name": "cake"
     }
   ]
 }

@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, OnChanges} from 'angular2/core';
 
 import {UserSettingsColorsService} from './UserSettingsColorsService';
 import {AlertingService} from '../alerting/AlertingService';
@@ -11,28 +11,25 @@ import {ImagesService} from '../../shared/services/ImagesService';
   selector: 'settings',
   templateUrl: './app/components/userSettings/userSettings.html'
 })
-export class UserSettingsComponent {
+export class UserSettingsComponent implements OnChanges {
   public availablePointerColors: PointerColor[] = new Array<PointerColor>();
   public allImages: string[] = new Array<string>();
 
   @Input() userSettings: UserSettings;
-  ngOnInit() {
-    if (this.userSettings.backgroundColor === undefined) {
-      this.userSettings.backgroundColor = BackgroundColor.InColor;
-      this.userSettings.pointerType = PointerType.Hand;
-      this.userSettings.pointerSize = PointerSize.Small;
-      this.userSettings.pointerColor = PointerColor.White;
+  ngOnChanges(changes) {
+    var changedUserSettings = changes.userSettings.currentValue;
+    if (changedUserSettings) {
+      this.setBackgroundColorAndPointerColors(this.userSettings.backgroundColor);
+      this.selectPointerSize(this.userSettings.pointerSize);
+      this.selectPointerColor(this.userSettings.pointerColor);
     }
-
-    this.setBackgroundColorAndPointerColors(this.userSettings.backgroundColor);
-    this.selectPointerSize(this.userSettings.pointerSize);
-    this.selectPointerColor(this.userSettings.pointerColor);
   }
 
   constructor(
     private alertingService: AlertingService,
     private pointerColorService: UserSettingsColorsService,
     private imagesService: ImagesService) {
+
     this.getAvailableImages();
   }
 
@@ -44,7 +41,7 @@ export class UserSettingsComponent {
   }
 
   setBackgroundColorAndPointerColors(backgroundColor: BackgroundColor) {
-    this.userSettings.backgroundColor = backgroundColor;
+    this.userSettings.backgroundColor = Number(backgroundColor);
     this.availablePointerColors = this.pointerColorService.getPointerColors(backgroundColor);
   }
 
@@ -62,14 +59,20 @@ export class UserSettingsComponent {
   }
 
   shouldBeChecked(backgroundColor: BackgroundColor): boolean {
-    return this.userSettings.backgroundColor === Number(backgroundColor);
+    if (this.userSettings) {
+      return this.userSettings.backgroundColor === Number(backgroundColor);
+    }
   }
 
   shouldApplySelectedPointerColorCss(pointerColor: PointerColor): boolean {
-    return this.userSettings.pointerColor === pointerColor;
+    if (this.userSettings) {
+      return this.userSettings.pointerColor === pointerColor;
+    }
   }
 
   shouldApplySelectedPointerSizeCss(pointerSize: PointerSize): boolean {
-    return this.userSettings.pointerSize === pointerSize;
+    if (this.userSettings) {
+      return this.userSettings.pointerSize === pointerSize;
+    }
   }
 }

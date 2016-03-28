@@ -14,11 +14,13 @@ import {UploadPictureComponent} from './app/components/upload/UploadPictureCompo
 import {RegisterComponent} from './app/components/registration/RegisterComponent';
 import {LoginComponent} from './app/components/login/LoginComponent';
 import {AlertingComponent} from './app/components/alerting/AlertingComponent';
+import {UserSettingsEditComponent} from './app/components/userSettingsEdit/UserSettingsEditComponent';
 
 /*
  * Injectables
  */
 import { servicesInjectables } from './app/shared/services/services';
+import { AuthService } from './app/shared/services/AuthService';
 
 
 /*
@@ -38,8 +40,18 @@ import { AUTH_PROVIDERS } from './app/shared/services/AuthService';
   { path: '/uploadpicture', component: UploadPictureComponent, name: 'UploadPicture' },
   { path: '/register', component: RegisterComponent, name: 'Register' },
   { path: '/login', component: LoginComponent, name: 'Login' },
+  { path: '/userSettingsEdit', component: UserSettingsEditComponent, name: 'UserSettingsEdit' },
 ])
-export class App { }
+export class App {
+  constructor(private authService: AuthService) { }
+
+  isUserLogged(): boolean {
+    if (this.authService.isLogged()) {
+      return true;
+    }
+    return false;
+  }
+}
 
 bootstrap(App, [servicesInjectables,
   AUTH_PROVIDERS, ROUTER_PROVIDERS, HTTP_PROVIDERS,
