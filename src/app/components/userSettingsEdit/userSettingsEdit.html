@@ -6,11 +6,13 @@
     </div>
 
     <div class="form-group top-buffer">
-      <div class="col-sm-1 col-sm-offset-2">
-        <button type="submit" id="saveUserSettings" class="btn btn-primary" (click)=saveUserSettings()>Зачувај промени</button>
-      </div>
-      <div class="col-sm-1">
-        <a class="btn btn-default" id="BackToLoginPage" [routerLink]="['/Login']">Назад</a>
+      <div class="col-sm-offset-2">
+        <a class="btn btn-default" id="BackToLoginPage" [routerLink]="['/Login']">
+          <span class="glyphicon glyphicon-chevron-left">&nbsp;</span>Назад
+        </a>
+        <button type="submit" id="saveUserSettings" class="btn btn-primary" (click)=saveUserSettings()>
+          Зачувај промени
+        </button>
       </div>
     </div>
 
