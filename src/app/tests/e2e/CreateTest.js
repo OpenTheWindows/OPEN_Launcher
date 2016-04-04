@@ -35,7 +35,7 @@ describe("Game menu log in user", function() {
     CreateUserPage.createPredefinedUserName("Josif");
     browser.sleep(500);
     browser.ignoreSynchronization = true;
-    expect(CreateUserPage.returnMessage()).toEqual("Корисничкото име веќе постои, обидете се да се регистрирате со друго име");
+    expect(CreateUserPage.returnMessage()).toEqual("Корисничкото име веќе постои, обидете се да се регистрирате со друго име.");
     browser.sleep(500);
     browser.ignoreSynchronization = false;
     CreateUserPage.clickBack();
@@ -71,7 +71,7 @@ describe("Game menu log in user", function() {
     CreateUserPage.clickCreateBtnAfter();
     browser.sleep(500);
     browser.ignoreSynchronization = true;
-    expect(CreateUserPage.returnMessage()).toEqual("За да креирате профил, ве молам изберете слика");
+    expect(CreateUserPage.returnMessage()).toEqual("За да креирате профил, ве молам изберете слика.");
     browser.sleep(500);
     browser.ignoreSynchronization = false;
     console.log("Finishing : User can not be created");
