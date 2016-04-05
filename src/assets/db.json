@@ -5,10 +5,160 @@
         "backgroundColor": 0,
         "pointerType": 0,
         "pointerSize": 0,
-        "pointerColor": 0
+        "pointerColor": 4
+      },
+      "profileImg": "./assets/images/avatars/slon.png",
+      "name": "Auto-UserName-uaW"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 0,
+        "pointerType": 0,
+        "pointerSize": 1,
+        "pointerColor": 4
       },
       "profileImg": "./assets/images/avatars/devojce.png",
-      "name": "Aleksandra"
+      "name": "AuOI"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 0,
+        "pointerType": 0,
+        "pointerSize": 1,
+        "pointerColor": 0
+      },
+      "profileImg": "./assets/images/avatars/prase.png",
+      "name": "AuCk"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 0,
+        "pointerType": 0,
+        "pointerSize": 1,
+        "pointerColor": 3
+      },
+      "profileImg": "./assets/images/avatars/devojce.png",
+      "name": "AueT"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 0,
+        "pointerType": 0,
+        "pointerSize": 1,
+        "pointerColor": 2
+      },
+      "profileImg": "./assets/images/avatars/slon.png",
+      "name": "Auy"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 0,
+        "pointerType": 0,
+        "pointerSize": 1,
+        "pointerColor": 1
+      },
+      "profileImg": "./assets/images/avatars/srce.png",
+      "name": "AusF"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 0,
+        "pointerType": 0,
+        "pointerSize": 0,
+        "pointerColor": 4
+      },
+      "profileImg": "./assets/images/avatars/krava.png",
+      "name": "Autc"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 0,
+        "pointerType": 0,
+        "pointerSize": 0,
+        "pointerColor": 0
+      },
+      "profileImg": "./assets/images/avatars/krava.png",
+      "name": "Auo"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 0,
+        "pointerType": 0,
+        "pointerSize": 0,
+        "pointerColor": 3
+      },
+      "profileImg": "./assets/images/avatars/riba.png",
+      "name": "AuXL"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 0,
+        "pointerType": 0,
+        "pointerSize": 0,
+        "pointerColor": 2
+      },
+      "profileImg": "./assets/images/avatars/topka.png",
+      "name": "Ae-PAq"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 0,
+        "pointerType": 0,
+        "pointerSize": 0,
+        "pointerColor": 1
+      },
+      "profileImg": "./assets/images/avatars/riba.png",
+      "name": "Au-ser-OHB"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 1,
+        "pointerType": 0,
+        "pointerSize": 1,
+        "pointerColor": 0
+      },
+      "profileImg": "./assets/images/avatars/topka.png",
+      "name": "ABSV"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 1,
+        "pointerType": 0,
+        "pointerSize": 1,
+        "pointerColor": 1
+      },
+      "profileImg": "./assets/images/avatars/riba.png",
+      "name": "AName-BvU"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 1,
+        "pointerType": 0,
+        "pointerSize": 0,
+        "pointerColor": 0
+      },
+      "profileImg": "./assets/images/avatars/topka.png",
+      "name": "AuJE"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 1,
+        "pointerType": 0,
+        "pointerSize": 0,
+        "pointerColor": 1
+      },
+      "profileImg": "./assets/images/avatars/krava.png",
+      "name": "AName-PCI"
+    },
+    {
+      "userSettings": {
+        "backgroundColor": 1,
+        "pointerType": 0,
+        "pointerSize": 1,
+        "pointerColor": 1
+      },
+      "profileImg": "./assets/images/avatars/devojce.png",
+      "name": "fdfdsfsf"
     }
   ]
 }
